@@ -1,0 +1,65 @@
+# CODEOWNERS
+# This file defines code owners for the Thunders AI project.
+# Pull requests automatically request reviews from the owners of changed files.
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @thunders-ai/core-team
+
+# Core engine and configuration
+/thunders_ai/core/ @thunders-ai/core-maintainers
+/thunders_ai/utils/ @thunders-ai/core-maintainers
+
+# LLM and chat module
+/thunders_ai/llm/ @thunders-ai/llm-team
+
+# Multimodal (vision and speech)
+/thunders_ai/multimodal/ @thunders-ai/multimodal-team
+
+# Robotics and autonomous systems
+/thunders_ai/robotics/ @thunders-ai/robotics-team
+
+# Neural network architectures
+/thunders_ai/neural/ @thunders-ai/research-team
+
+# Security module
+/thunders_ai/security/ @thunders-ai/security-team
+
+# Cloud deployment
+/thunders_ai/cloud/ @thunders-ai/cloud-team
+
+# Third-party integrations
+/thunders_ai/integrations/ @thunders-ai/integrations-team
+
+# UI components
+/thunders_ai/ui/ @thunders-ai/ui-team
+
+# API server
+/api/ @thunders-ai/api-team @thunders-ai/core-maintainers
+
+# Tests
+/tests/ @thunders-ai/core-team @thunders-ai/qa-team
+
+# Documentation
+/docs/ @thunders-ai/docs-team
+
+# CI/CD and GitHub workflows
+/.github/ @thunders-ai/devops-team
+
+# Deployment configurations
+/deployment/ @thunders-ai/devops-team @thunders-ai/cloud-team
+
+# Model configurations
+/models/ @thunders-ai/research-team @thunders-ai/llm-team
+
+# Example notebooks
+/examples/ @thunders-ai/docs-team
+/notebooks/ @thunders-ai/docs-team
+
+# Research papers and experiments
+/research/ @thunders-ai/research-team
+
+# Build and packaging
+/setup.py @thunders-ai/core-maintainers @thunders-ai/devops-team
+/pyproject.toml @thunders-ai/core-maintainers @thunders-ai/devops-team
+/requirements/ @thunders-ai/devops-team
