@@ -1,0 +1,10 @@
+"""Version information for Thunders AI."""
+
+__version__ = "1.0.0"
+__author__ = "Thunders AI Team"
+__email__ = "team@thunders-ai.dev"
+__license__ = "MIT"
+__copyright__ = "Copyright 2024-2026, Thunders AI Team"
+__title__ = "thunders-ai"
+__description__ = "Futuristic AI Platform for LLM, Vision, Robotics & Autonomous Systems"
+__url__ = "https://github.com/thunders-ai/thunders-ai"
