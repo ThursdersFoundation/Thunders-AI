@@ -1,0 +1,4 @@
+-r base.txt
+cuda-python>=12.0
+tensorrt>=8.6.0
+cupy-cuda12x>=12.0.0
