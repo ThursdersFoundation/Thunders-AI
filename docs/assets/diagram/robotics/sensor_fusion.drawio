@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" modified="2026-05-31T00:00:00.000Z" agent="Thunders AI" version="21.0.0" type="device">
+  <diagram id="diag-4" name="Sensor Fusion">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Camera -->
+        <mxCell id="2" value="Camera&#xa;(RGB / Depth)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <!-- LiDAR -->
+        <mxCell id="3" value="LiDAR&#xa;(3D Point Cloud)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="80" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Radar -->
+        <mxCell id="4" value="Radar&#xa;(Velocity / Range)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="80" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <!-- IMU -->
+        <mxCell id="5" value="IMU&#xa;(Accel / Gyro)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="80" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Kalman Filter -->
+        <mxCell id="6" value="Extended Kalman Filter&#xa;(EKF)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="230" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Data Association -->
+        <mxCell id="7" value="Data Association&#xa;(Hungarian Algorithm)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="370" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <!-- State Estimation -->
+        <mxCell id="8" value="State Estimation&#xa;(Pose / Velocity / Accel)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="500" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Fused Output -->
+        <mxCell id="9" value="Fused Output&#xa;(Unified World Model)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="640" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Noise Model -->
+        <mxCell id="10" value="Noise Model&#xa;(Covariance Matrix)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="240" width="180" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Prediction Model -->
+        <mxCell id="11" value="Prediction Model&#xa;(Motion Dynamics)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="240" width="180" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Edges -->
+        <mxCell id="12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="2" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="3" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="4" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="5" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="6" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="7" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="8" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="10" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="11" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="21" value="feedback" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;dashed=1;" edge="1" source="8" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="530"/>
+              <mxPoint x="200" y="260"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

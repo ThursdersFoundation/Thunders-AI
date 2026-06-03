@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00B4FF"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6C3CE1"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F85149"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0D1117" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="20" font-weight="bold">Robot Navigation System</text>
+
+  <!-- ===== Sensor Input Row ===== -->
+  <text x="400" y="65" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="11">Sensor Inputs</text>
+
+  <!-- LiDAR -->
+  <rect x="70" y="75" width="150" height="50" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="145" y="97" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">LiDAR</text>
+  <text x="145" y="115" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">3D Point Cloud</text>
+
+  <!-- Camera -->
+  <rect x="250" y="75" width="150" height="50" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="325" y="97" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Camera</text>
+  <text x="325" y="115" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">RGB-D Vision</text>
+
+  <!-- GPS -->
+  <rect x="430" y="75" width="150" height="50" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="505" y="97" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">GPS / IMU</text>
+  <text x="505" y="115" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Position &amp; Orientation</text>
+
+  <!-- Arrows from sensors to Map Builder -->
+  <line x1="145" y1="125" x2="310" y2="175" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="325" y1="125" x2="350" y2="175" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="505" y1="125" x2="440" y2="175" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ===== Map Builder ===== -->
+  <rect x="230" y="180" width="280" height="65" rx="10" fill="#161B22" stroke="#6C3CE1" stroke-width="2"/>
+  <text x="370" y="207" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Map Builder</text>
+  <text x="370" y="225" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">SLAM · Occupancy Grid · Semantic Map</text>
+  <text x="370" y="238" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">Real-time Environment Reconstruction</text>
+
+  <!-- Arrow to Path Planner -->
+  <line x1="370" y1="245" x2="370" y2="285" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ===== Path Planner ===== -->
+  <rect x="230" y="290" width="280" height="65" rx="10" fill="#161B22" stroke="#6C3CE1" stroke-width="2"/>
+  <text x="370" y="317" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Path Planner</text>
+  <text x="370" y="335" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">A* · RRT* · D* Lite · NavNet</text>
+  <text x="370" y="348" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">Optimal Trajectory Generation</text>
+
+  <!-- Arrow to Motion Controller -->
+  <line x1="370" y1="355" x2="370" y2="395" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ===== Motion Controller ===== -->
+  <rect x="230" y="400" width="280" height="65" rx="10" fill="#161B22" stroke="#6C3CE1" stroke-width="2"/>
+  <text x="370" y="427" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Motion Controller</text>
+  <text x="370" y="445" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">PID · MPC · Pure Pursuit</text>
+  <text x="370" y="458" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">Velocity &amp; Steering Commands</text>
+
+  <!-- Arrow to Robot -->
+  <line x1="370" y1="465" x2="370" y2="505" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ===== Robot ===== -->
+  <rect x="280" y="510" width="180" height="60" rx="10" fill="#161B22" stroke="#00B4FF" stroke-width="2" filter="url(#glow)"/>
+  <text x="370" y="537" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Robot</text>
+  <text x="370" y="557" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">Actuators · Locomotion</text>
+
+  <!-- ===== Obstacle Detection Feedback Loop (Right Side) ===== -->
+  <rect x="580" y="310" width="180" height="60" rx="8" fill="#161B22" stroke="#F85149" stroke-width="1.5"/>
+  <text x="670" y="337" text-anchor="middle" fill="#F85149" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Obstacle Detection</text>
+  <text x="670" y="355" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Collision Avoidance</text>
+
+  <!-- Arrow from Path Planner to Obstacle Detection -->
+  <line x1="510" y1="322" x2="580" y2="322" stroke="#F85149" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- Feedback arrow from Obstacle Detection back to Path Planner -->
+  <line x1="580" y1="355" x2="510" y2="355" stroke="#F85149" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrow-red)"/>
+
+  <!-- Arrow from Obstacle Detection to Motion Controller -->
+  <line x1="670" y1="370" x2="670" y2="430" stroke="#F85149" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <line x1="670" y1="430" x2="510" y2="430" stroke="#F85149" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+
+  <!-- ===== Localization Box (Left Side) ===== -->
+  <rect x="30" y="310" width="170" height="60" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="115" y="337" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Localization</text>
+  <text x="115" y="355" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Particle Filter · EKF</text>
+
+  <!-- Arrow from Map Builder to Localization -->
+  <line x1="230" y1="212" x2="115" y2="310" stroke="#00B4FF" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Arrow from Localization to Path Planner -->
+  <line x1="200" y1="340" x2="230" y2="322" stroke="#00B4FF" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Feedback from Robot to Localization -->
+  <line x1="280" y1="540" x2="115" y2="370" stroke="#00B4FF" stroke-width="1" stroke-dasharray="4,3" opacity="0.6" marker-end="url(#arrow)"/>
+
+  <!-- ===== Feedback labels ===== -->
+  <text x="645" y="305" text-anchor="middle" fill="#F85149" font-family="Arial,sans-serif" font-size="9" font-style="italic">Feedback Loop</text>
+
+  <text x="115" y="295" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9" font-style="italic">Position Update</text>
+
+  <!-- Odometry feedback from Robot -->
+  <text x="170" y="570" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9" font-style="italic">Odometry Feedback →</text>
+  <line x1="280" y1="555" x2="115" y2="370" stroke="#8B949E" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+</svg>
