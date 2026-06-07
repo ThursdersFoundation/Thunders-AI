@@ -1,0 +1,102 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel>=0.40.0", "setuptools-scm[toml]>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thunders-ai"
+version = "1.0.0"
+description = "Thunders AI - Futuristic AI Platform for LLM, Vision, Robotics & Autonomous Systems"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Thunders AI Team", email = "team@thunders-ai.dev"},
+]
+keywords = ["ai", "llm", "robotics", "vision", "autonomous", "multimodal", "deep-learning"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "torch>=2.0.0",
+    "transformers>=4.35.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "websockets>=12.0",
+    "pydantic>=2.5.0",
+    "numpy>=1.24.0",
+    "pillow>=10.0.0",
+    "requests>=2.31.0",
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+gpu = ["cuda-python>=12.0", "tensorrt>=8.6.0"]
+robotics = ["opencv-python>=4.8.0", "ros2py>=0.3.0"]
+vision = ["opencv-python>=4.8.0", "onnxruntime>=1.16.0"]
+audio = ["whisper>=1.1.0", "pyttsx3>=2.90"]
+all = ["thunders-ai[gpu,robotics,vision,audio]"]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "isort>=5.12.0",
+    "pre-commit>=3.6.0",
+    "sphinx>=7.2.0",
+    "sphinx-rtd-theme>=2.0.0",
+]
+
+[project.scripts]
+thunders-ai = "thunders_ai.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/thunders-ai/thunders-ai"
+Documentation = "https://thunders-ai.readthedocs.io"
+Repository = "https://github.com/thunders-ai/thunders-ai"
+Issues = "https://github.com/thunders-ai/thunders-ai/issues"
+Changelog = "https://github.com/thunders-ai/thunders-ai/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+include = ["thunders_ai*"]
+
+[tool.setuptools.package-data]
+thunders_ai = ["py.typed"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "--cov=thunders_ai --cov-report=html --cov-report=term-missing"
+
+[tool.isort]
+profile = "black"
+line_length = 100

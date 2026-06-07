@@ -1,0 +1,10 @@
+include LICENSE
+include README.md
+include CONTRIBUTING.md
+include CHANGELOG.md
+include pyproject.toml
+include setup.py
+include setup.cfg
+recursive-include thunders_ai *.py *.typed
+recursive-include docs *.md *.rst
+recursive-include examples *.py

@@ -1,0 +1,115 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# pyenv
+.python-version
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Ruff
+.ruff_cache/
+
+# Models & Data (large files)
+models/checkpoints/*
+models/pretrained/*
+models/finetuned/*
+models/quantized/*
+!models/checkpoints/.gitkeep
+!models/pretrained/.gitkeep
+!models/finetuned/.gitkeep
+!models/quantized/.gitkeep
+
+datasets/raw/*
+datasets/processed/*
+datasets/embeddings/*
+datasets/synthetic/*
+!datasets/raw/.gitkeep
+!datasets/processed/.gitkeep
+!datasets/embeddings/.gitkeep
+!datasets/synthetic/.gitkeep
+
+# Research
+research/papers/*
+research/experiments/*
+research/datasets/*
+research/benchmarks/*
+!research/papers/.gitkeep
+!research/experiments/.gitkeep
+!research/datasets/.gitkeep
+!research/benchmarks/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+deployment/aws/*
+deployment/gcp/*
+deployment/azure/*
+deployment/edge/*
+!deployment/aws/.gitkeep
+!deployment/gcp/.gitkeep
+!deployment/azure/.gitkeep
+!deployment/edge/.gitkeep
+
+# Logs
+*.log
+logs/
