@@ -1,0 +1,147 @@
+version: '3.8'
+
+# =============================================================================
+# Thunders AI — Docker Compose
+# =============================================================================
+# Quick start:
+#   docker compose up                     # CPU mode
+#   docker compose --profile gpu up       # GPU mode (requires nvidia-docker)
+#   docker compose up redis postgres      # Infrastructure only
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # Thunders AI — CPU (default)
+  # ---------------------------------------------------------------------------
+  thunders-ai:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile
+    image: thunders-ai:latest
+    container_name: thunders-ai
+    ports:
+      - "8000:8000"
+    volumes:
+      - model_cache:/home/thunders/.thunders_ai
+    environment:
+      - THUNDERS_AI_DEVICE=cpu
+      - THUNDERS_AI_LOG_LEVEL=INFO
+      - THUNDERS_AI_REDIS_URL=redis://redis:6379/0
+      - THUNDERS_AI_DATABASE_URL=postgresql+asyncpg://thunders:changeme@postgres:5432/thunders_ai
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - thunders-net
+
+  # ---------------------------------------------------------------------------
+  # Thunders AI — GPU (opt-in profile)
+  # ---------------------------------------------------------------------------
+  thunders-ai-gpu:
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile
+    image: thunders-ai:latest
+    container_name: thunders-ai-gpu
+    ports:
+      - "8001:8000"
+    volumes:
+      - model_cache:/home/thunders/.thunders_ai
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - THUNDERS_AI_DEVICE=cuda
+      - THUNDERS_AI_LOG_LEVEL=INFO
+      - THUNDERS_AI_REDIS_URL=redis://redis:6379/0
+      - THUNDERS_AI_DATABASE_URL=postgresql+asyncpg://thunders:changeme@postgres:5432/thunders_ai
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    profiles:
+      - gpu
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - thunders-net
+
+  # ---------------------------------------------------------------------------
+  # Redis — Caching & Queue Backend
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: thunders-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - thunders-net
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — Persistent Storage
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: thunders-postgres
+    environment:
+      POSTGRES_DB: thunders_ai
+      POSTGRES_USER: thunders
+      POSTGRES_PASSWORD: changeme
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U thunders -d thunders_ai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - thunders-net
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  model_cache:
+    driver: local
+  redis_data:
+    driver: local
+  postgres_data:
+    driver: local
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  thunders-net:
+    driver: bridge

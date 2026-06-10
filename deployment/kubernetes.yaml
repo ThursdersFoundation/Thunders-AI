@@ -1,0 +1,450 @@
+# =============================================================================
+# Thunders AI — Kubernetes Deployment
+# =============================================================================
+# Apply:  kubectl apply -f deployment/docker/kubernetes.yaml
+# Check:  kubectl get all -n thunders-ai
+# Scale:  kubectl scale deployment thunders-ai --replicas=5 -n thunders-ai
+# =============================================================================
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/part-of: thunders-ai
+
+---
+# =============================================================================
+# ConfigMap — Application Configuration
+# =============================================================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: thunders-ai-config
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+data:
+  THUNDERS_AI_HOST: "0.0.0.0"
+  THUNDERS_AI_PORT: "8000"
+  THUNDERS_AI_DEVICE: "cpu"
+  THUNDERS_AI_LOG_LEVEL: "INFO"
+  THUNDERS_AI_WORKERS: "4"
+  THUNDERS_AI_REDIS_URL: "redis://thunders-ai-redis:6379/0"
+  THUNDERS_AI_DATABASE_URL: "postgresql+asyncpg://thunders:$(DB_PASSWORD)@thunders-ai-postgres:5432/thunders_ai"
+
+---
+# =============================================================================
+# Secret — Sensitive Configuration
+# =============================================================================
+apiVersion: v1
+kind: Secret
+metadata:
+  name: thunders-ai-secrets
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+type: Opaque
+stringData:
+  DB_PASSWORD: "changeme-in-production"
+  API_KEY: "changeme-api-key"
+  JWT_SECRET: "changeme-jwt-secret-use-strong-random-value"
+  ENCRYPTION_KEY: "changeme-encryption-key-32-bytes!!"
+
+---
+# =============================================================================
+# PersistentVolumeClaim — Model Storage
+# =============================================================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: thunders-ai-model-pvc
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: standard
+
+---
+# =============================================================================
+# Deployment — Application Pods
+# =============================================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thunders-ai
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: thunders-ai
+      app.kubernetes.io/component: server
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: thunders-ai
+        app.kubernetes.io/component: server
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: thunders-ai
+          image: thunders-ai:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: thunders-ai-config
+            - secretRef:
+                name: thunders-ai-secrets
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "2000m"
+              memory: "4Gi"
+          volumeMounts:
+            - name: model-storage
+              mountPath: /home/thunders/.thunders_ai
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            failureThreshold: 30
+      volumes:
+        - name: model-storage
+          persistentVolumeClaim:
+            claimName: thunders-ai-model-pvc
+      terminationGracePeriodSeconds: 30
+
+---
+# =============================================================================
+# Service — ClusterIP (internal)
+# =============================================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: thunders-ai
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: server
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: server
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+      protocol: TCP
+
+---
+# =============================================================================
+# Service — LoadBalancer (external)
+# =============================================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: thunders-ai-lb
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: server
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: server
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+
+---
+# =============================================================================
+# HorizontalPodAutoscaler
+# =============================================================================
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: thunders-ai-hpa
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: thunders-ai
+  minReplicas: 3
+  maxReplicas: 20
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Percent
+          value: 10
+          periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 60
+        - type: Pods
+          value: 2
+          periodSeconds: 60
+
+---
+# =============================================================================
+# Ingress — TLS Termination
+# =============================================================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: thunders-ai-ingress
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - api.thunders-ai.dev
+      secretName: thunders-ai-tls
+  rules:
+    - host: api.thunders-ai.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: thunders-ai
+                port:
+                  number: 8000
+
+---
+# =============================================================================
+# Redis — StatefulSet
+# =============================================================================
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: thunders-ai-redis
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: redis
+spec:
+  serviceName: thunders-ai-redis
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: thunders-ai
+      app.kubernetes.io/component: redis
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: thunders-ai
+        app.kubernetes.io/component: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7-alpine
+          ports:
+            - name: redis
+              containerPort: 6379
+          command: ["redis-server", "--appendonly", "yes", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+      volumes:
+        - name: redis-data
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thunders-ai-redis
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: redis
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: redis
+  ports:
+    - name: redis
+      port: 6379
+      targetPort: redis
+
+---
+# =============================================================================
+# PostgreSQL — StatefulSet
+# =============================================================================
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: thunders-ai-postgres
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: postgres
+spec:
+  serviceName: thunders-ai-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: thunders-ai
+      app.kubernetes.io/component: postgres
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: thunders-ai
+        app.kubernetes.io/component: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: thunders_ai
+            - name: POSTGRES_USER
+              value: thunders
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: thunders-ai-secrets
+                  key: DB_PASSWORD
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: thunders-ai-postgres
+  namespace: thunders-ai
+  labels:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: postgres
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: thunders-ai
+    app.kubernetes.io/component: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
