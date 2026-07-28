@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net" modified="2026-05-31T00:00:00.000Z" agent="Thunders AI" version="21.0.0" type="device">
+  <diagram id="diag-8" name="Storage Architecture">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Hot Storage -->
+        <mxCell id="2" value="Hot Storage&#xa;(Redis / Cache)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#ff6348;strokeColor=#ff6348;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="80" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" value="TTL: 1h - 24h&#xa;Latency: &lt;1ms&#xa;Size: ~50 GB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#ff6348;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="100" y="160" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Warm Storage -->
+        <mxCell id="4" value="Warm Storage&#xa;(PostgreSQL + pgvector)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#ffa502;strokeColor=#ffa502;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="80" width="260" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="5" value="TTL: 30d - 1y&#xa;Latency: 5-50ms&#xa;Size: ~5 TB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#ffa502;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="160" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Cold Storage -->
+        <mxCell id="6" value="Cold Storage&#xa;(S3 / Object Store)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#00b4ff;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="80" width="240" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" value="TTL: Archive&#xa;Latency: 100-500ms&#xa;Size: ~50 TB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="780" y="160" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Model Storage -->
+        <mxCell id="8" value="Model Storage&#xa;(SafeTensors / ONNX)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#6c3ce1;strokeColor=#6c3ce1;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="310" width="260" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="9" value="Versioned &amp; Immutable&#xa;Latency: ~2s load&#xa;Size: ~2 TB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="420" y="390" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Data Lifecycle Arrows -->
+        <mxCell id="10" value="evict" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="2" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" value="archive" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="4" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="12" value="restore" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;dashed=1;" edge="1" source="6" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="750" y="200"/>
+              <mxPoint x="750" y="125"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="13" value="warm cache" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;dashed=1;" edge="1" source="4" target="2" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="125"/>
+              <mxPoint x="370" y="200"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- Model Storage connections -->
+        <mxCell id="14" value="load model" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="6" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="900" y="345"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- Inference Cache -->
+        <mxCell id="15" value="Inference Cache&#xa;(KV Cache)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#ff6348;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="100" y="310" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Metadata Store -->
+        <mxCell id="16" value="Metadata Store&#xa;(etcd / Consul)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="780" y="310" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Edges for metadata and cache -->
+        <mxCell id="17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="16" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#ff6348;fontColor=#e6edf3;" edge="1" source="15" target="2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
