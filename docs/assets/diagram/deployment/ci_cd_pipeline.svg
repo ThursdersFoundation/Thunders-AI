@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00B4FF"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6C3CE1"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F85149"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3FB950"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="pipe-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#00B4FF;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" fill="#0D1117" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="20" font-weight="bold">CI/CD Pipeline</text>
+
+  <!-- ===== Pipeline Stages (Horizontal Flow) ===== -->
+
+  <!-- Code Push -->
+  <rect x="20" y="70" width="95" height="65" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="67" y="95" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Code Push</text>
+  <text x="67" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">git push</text>
+  <text x="67" y="125" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">PR / Merge</text>
+
+  <!-- Arrow -->
+  <line x1="115" y1="102" x2="130" y2="102" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Build -->
+  <rect x="140" y="70" width="95" height="65" rx="8" fill="#161B22" stroke="#6C3CE1" stroke-width="1.5"/>
+  <text x="187" y="95" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Build</text>
+  <text x="187" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Compile</text>
+  <text x="187" y="125" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Docker Image</text>
+
+  <!-- Arrow -->
+  <line x1="235" y1="102" x2="250" y2="102" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Test -->
+  <rect x="260" y="70" width="95" height="65" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="307" y="95" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Test</text>
+  <text x="307" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Unit / Integration</text>
+  <text x="307" y="125" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">E2E / Load</text>
+
+  <!-- Arrow -->
+  <line x1="355" y1="102" x2="370" y2="102" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Lint -->
+  <rect x="380" y="70" width="95" height="65" rx="8" fill="#161B22" stroke="#6C3CE1" stroke-width="1.5"/>
+  <text x="427" y="95" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Lint</text>
+  <text x="427" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">ESLint / Ruff</text>
+  <text x="427" y="125" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Type Check</text>
+
+  <!-- Arrow -->
+  <line x1="475" y1="102" x2="490" y2="102" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Security Scan -->
+  <rect x="500" y="70" width="95" height="65" rx="8" fill="#161B22" stroke="#F0883E" stroke-width="1.5"/>
+  <text x="547" y="95" text-anchor="middle" fill="#F0883E" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Security</text>
+  <text x="547" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">SAST / DAST</text>
+  <text x="547" y="125" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Vuln Scan</text>
+
+  <!-- Arrow -->
+  <line x1="595" y1="102" x2="610" y2="102" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Stage -->
+  <rect x="620" y="70" width="95" height="65" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="667" y="95" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Stage</text>
+  <text x="667" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Pre-prod</text>
+  <text x="667" y="125" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">Smoke Test</text>
+
+  <!-- Arrow -->
+  <line x1="715" y1="102" x2="730" y2="102" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Deploy -->
+  <rect x="740" y="65" width="140" height="75" rx="10" fill="#161B22" stroke="#3FB950" stroke-width="2" filter="url(#glow)"/>
+  <text x="810" y="92" text-anchor="middle" fill="#3FB950" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Deploy</text>
+  <text x="810" y="112" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">K8s Rolling Update</text>
+  <text x="810" y="128" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Blue-Green / Canary</text>
+
+  <!-- ===== Deployment Environments ===== -->
+  <rect x="740" y="165" width="140" height="20" rx="4" fill="#0D1117" stroke="#3FB950" stroke-width="1"/>
+  <text x="810" y="179" text-anchor="middle" fill="#3FB950" font-family="Arial,sans-serif" font-size="9" font-weight="bold">Production</text>
+
+  <rect x="740" y="192" width="140" height="20" rx="4" fill="#0D1117" stroke="#F0883E" stroke-width="1"/>
+  <text x="810" y="206" text-anchor="middle" fill="#F0883E" font-family="Arial,sans-serif" font-size="9" font-weight="bold">Staging</text>
+
+  <rect x="740" y="219" width="140" height="20" rx="4" fill="#0D1117" stroke="#6C3CE1" stroke-width="1"/>
+  <text x="810" y="233" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="9" font-weight="bold">Development</text>
+
+  <!-- Arrows from Deploy to environments -->
+  <line x1="810" y1="140" x2="810" y2="165" stroke="#3FB950" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <line x1="810" y1="185" x2="810" y2="192" stroke="#8B949E" stroke-width="1"/>
+  <line x1="810" y1="212" x2="810" y2="219" stroke="#8B949E" stroke-width="1"/>
+
+  <!-- ===== Rollback Arrow ===== -->
+  <path d="M 740 110 L 740 260 L 20 260 L 20 102" fill="none" stroke="#F85149" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#arrow-red)"/>
+  <text x="380" y="278" text-anchor="middle" fill="#F85149" font-family="Arial,sans-serif" font-size="10" font-weight="bold">Rollback on Failure</text>
+
+  <!-- ===== Monitoring Feedback Loop ===== -->
+  <rect x="60" y="300" width="780" height="80" rx="10" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="80" y="323" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Monitoring &amp; Observability</text>
+
+  <!-- Monitoring sub-components -->
+  <rect x="80" y="335" width="140" height="32" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="150" y="356" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Prometheus</text>
+
+  <rect x="235" y="335" width="140" height="32" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="305" y="356" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Grafana Dashboards</text>
+
+  <rect x="390" y="335" width="140" height="32" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="460" y="356" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">ELK Stack Logs</text>
+
+  <rect x="545" y="335" width="140" height="32" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="615" y="356" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">PagerDuty Alerts</text>
+
+  <rect x="700" y="335" width="120" height="32" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="760" y="356" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Traces (Jaeger)</text>
+
+  <!-- Feedback arrow from Monitoring back to pipeline -->
+  <line x1="450" y1="300" x2="450" y2="260" stroke="#00B4FF" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow)"/>
+  <text x="480" y="288" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">auto-rollback trigger</text>
+
+  <!-- Pipeline stage status indicators -->
+  <circle cx="67" cy="140" r="4" fill="#3FB950"/>
+  <circle cx="187" cy="140" r="4" fill="#3FB950"/>
+  <circle cx="307" cy="140" r="4" fill="#3FB950"/>
+  <circle cx="427" cy="140" r="4" fill="#3FB950"/>
+  <circle cx="547" cy="140" r="4" fill="#3FB950"/>
+  <circle cx="667" cy="140" r="4" fill="#F0883E"/>
+  <circle cx="810" cy="145" r="4" fill="#3FB950"/>
+
+  <!-- Stage labels -->
+  <text x="67" y="155" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="7">CI</text>
+  <text x="307" y="155" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="7">CI</text>
+  <text x="547" y="155" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="7">CI</text>
+  <text x="667" y="155" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="7">CD</text>
+  <text x="810" y="155" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="7">CD</text>
+</svg>

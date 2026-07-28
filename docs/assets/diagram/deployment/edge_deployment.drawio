@@ -1,0 +1,119 @@
+<mxfile host="app.diagrams.net" modified="2026-05-31T00:00:00.000Z" agent="Thunders AI" version="21.0.0" type="device">
+  <diagram id="diag-9" name="Edge Deployment">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- Cloud Training -->
+        <mxCell id="2" value="Cloud Training&#xa;(GPU Cluster)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="60" width="180" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Model Optimization -->
+        <mxCell id="3" value="Model Optimization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="60" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Quantization -->
+        <mxCell id="4" value="Quantization&#xa;(INT8 / FP16)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="190" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Pruning -->
+        <mxCell id="5" value="Pruning&#xa;(Sparse)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="500" y="190" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Distillation -->
+        <mxCell id="6" value="Knowledge&#xa;Distillation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="700" y="190" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Model Packaging -->
+        <mxCell id="7" value="Model Packaging&#xa;(ONNX / TFLite)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="310" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Edge Distribution -->
+        <mxCell id="8" value="Edge Distribution&#xa;(CDN / MQTT)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="430" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Edge Device 1 -->
+        <mxCell id="9" value="Edge Device 1&#xa;(Jetson Orin)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="570" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Edge Device 2 -->
+        <mxCell id="10" value="Edge Device 2&#xa;(Raspberry Pi)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="570" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Edge Device 3 -->
+        <mxCell id="11" value="Edge Device 3&#xa;(Intel NUC)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="460" y="570" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Edge Device 4 -->
+        <mxCell id="12" value="Edge Device N&#xa;(Robot)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="660" y="570" width="150" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Monitoring -->
+        <mxCell id="13" value="Monitoring&#xa;(Prometheus / Grafana)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#00b4ff;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="430" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <!-- OTA Update -->
+        <mxCell id="14" value="OTA Update Service&#xa;(Version Control)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1a1b26;fontColor=#e6edf3;strokeColor=#6c3ce1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="310" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Edges -->
+        <mxCell id="15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="2" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="3" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="3" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="3" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="4" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="5" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="6" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="7" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Distribution to devices -->
+        <mxCell id="23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- OTA connections -->
+        <mxCell id="27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;" edge="1" source="7" target="14" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="28" value="OTA push" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6c3ce1;fontColor=#e6edf3;dashed=1;" edge="1" source="14" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Monitoring connections -->
+        <mxCell id="29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;" edge="1" source="8" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="30" value="telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#00b4ff;fontColor=#e6edf3;dashed=1;" edge="1" source="9" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="135" y="670"/>
+              <mxPoint x="980" y="670"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
