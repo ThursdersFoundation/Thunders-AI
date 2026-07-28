@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550" width="800" height="550">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00B4FF"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6C3CE1"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3FB950"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="550" fill="#0D1117" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="20" font-weight="bold">WebSocket Communication Flow</text>
+
+  <!-- ===== Client Side ===== -->
+  <!-- Client 1 -->
+  <rect x="30" y="60" width="130" height="50" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="95" y="82" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Client 1</text>
+  <text x="95" y="100" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Browser / App</text>
+
+  <!-- Client 2 -->
+  <rect x="30" y="125" width="130" height="50" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="95" y="147" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Client 2</text>
+  <text x="95" y="165" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Mobile SDK</text>
+
+  <!-- Client 3 -->
+  <rect x="30" y="190" width="130" height="50" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="95" y="212" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Client N</text>
+  <text x="95" y="230" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">IoT Device</text>
+
+  <!-- Dots indicating more clients -->
+  <text x="95" y="260" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="16">···</text>
+
+  <!-- ===== WebSocket Handshake ===== -->
+  <!-- Arrows from clients to handshake -->
+  <line x1="160" y1="85" x2="230" y2="130" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="160" y1="150" x2="230" y2="140" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="160" y1="215" x2="230" y2="155" stroke="#00B4FF" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Handshake box -->
+  <rect x="240" y="100" width="200" height="80" rx="10" fill="#161B22" stroke="#6C3CE1" stroke-width="2" filter="url(#glow)"/>
+  <text x="340" y="128" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="13" font-weight="bold">WebSocket</text>
+  <text x="340" y="148" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Handshake</text>
+  <text x="340" y="170" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">HTTP Upgrade → 101 Switching</text>
+
+  <!-- Arrow from handshake to server -->
+  <line x1="440" y1="140" x2="520" y2="140" stroke="#6C3CE1" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+  <!-- ===== WebSocket Server ===== -->
+  <rect x="530" y="70" width="240" height="170" rx="10" fill="#161B22" stroke="#00B4FF" stroke-width="2" filter="url(#glow)"/>
+  <text x="650" y="97" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="14" font-weight="bold">WebSocket Server</text>
+
+  <!-- Sub-sections -->
+  <rect x="545" y="110" width="105" height="35" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="597" y="132" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Connection Mgr</text>
+
+  <rect x="660" y="110" width="95" height="35" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="707" y="132" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Event Loop</text>
+
+  <rect x="545" y="155" width="105" height="35" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="597" y="177" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Message Queue</text>
+
+  <rect x="660" y="155" width="95" height="35" rx="5" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="707" y="177" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">Room Mgr</text>
+
+  <text x="650" y="228" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Async I/O · Non-blocking</text>
+
+  <!-- ===== Bidirectional Messages Section ===== -->
+  <rect x="40" y="290" width="720" height="120" rx="10" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="60" y="315" fill="#00B4FF" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Bidirectional Message Types</text>
+
+  <!-- Chat -->
+  <rect x="60" y="328" width="200" height="65" rx="8" fill="#0D1117" stroke="#6C3CE1" stroke-width="1.5"/>
+  <text x="160" y="353" text-anchor="middle" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Chat Messages</text>
+  <text x="160" y="372" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Text · Markdown · Reactions</text>
+  <text x="160" y="386" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Typing Indicators</text>
+
+  <!-- Stream -->
+  <rect x="280" y="328" width="200" height="65" rx="8" fill="#0D1117" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="380" y="353" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Stream Data</text>
+  <text x="380" y="372" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">LLM Token Stream</text>
+  <text x="380" y="386" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Real-time Progress · Logs</text>
+
+  <!-- Control -->
+  <rect x="500" y="328" width="240" height="65" rx="8" fill="#0D1117" stroke="#3FB950" stroke-width="1.5"/>
+  <text x="620" y="353" text-anchor="middle" fill="#3FB950" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Control Signals</text>
+  <text x="620" y="372" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Start · Stop · Cancel · Config</text>
+  <text x="620" y="386" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Subscribe · Unsubscribe</text>
+
+  <!-- Bidirectional arrows between client/server through message types -->
+  <line x1="95" y1="240" x2="95" y2="290" stroke="#6C3CE1" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="95" y1="410" x2="95" y2="430" stroke="#6C3CE1" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+
+  <!-- ===== Heartbeat / Ping-Pong Section ===== -->
+  <rect x="40" y="435" width="720" height="95" rx="10" fill="#161B22" stroke="#3FB950" stroke-width="1.5"/>
+  <text x="60" y="460" fill="#3FB950" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Heartbeat Mechanism</text>
+
+  <!-- Ping -->
+  <rect x="80" y="473" width="140" height="40" rx="6" fill="#0D1117" stroke="#3FB950" stroke-width="1"/>
+  <text x="150" y="498" text-anchor="middle" fill="#3FB950" font-family="Arial,sans-serif" font-size="11" font-weight="bold">PING</text>
+
+  <!-- Arrow -->
+  <line x1="220" y1="493" x2="290" y2="493" stroke="#3FB950" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="255" y="488" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">30s interval</text>
+
+  <!-- Server check -->
+  <rect x="300" y="473" width="140" height="40" rx="6" fill="#0D1117" stroke="#00B4FF" stroke-width="1"/>
+  <text x="370" y="498" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Server Alive</text>
+
+  <!-- Arrow -->
+  <line x1="440" y1="493" x2="510" y2="493" stroke="#3FB950" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- Pong -->
+  <rect x="520" y="473" width="140" height="40" rx="6" fill="#0D1117" stroke="#3FB950" stroke-width="1"/>
+  <text x="590" y="498" text-anchor="middle" fill="#3FB950" font-family="Arial,sans-serif" font-size="11" font-weight="bold">PONG</text>
+
+  <!-- Timeout -->
+  <rect x="680" y="473" width="60" height="40" rx="6" fill="#0D1117" stroke="#F85149" stroke-width="1"/>
+  <text x="710" y="498" text-anchor="middle" fill="#F85149" font-family="Arial,sans-serif" font-size="9">Timeout</text>
+
+  <line x1="660" y1="493" x2="680" y2="493" stroke="#F85149" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Connection arrow from Client to Handshake label -->
+  <text x="195" y="80" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">ws://</text>
+  <text x="195" y="92" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">wss://</text>
+</svg>
