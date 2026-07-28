@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" width="700" height="700">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00B4FF"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6C3CE1"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6C3CE1;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#00B4FF;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="700" fill="#0D1117" rx="8"/>
+
+  <!-- Title -->
+  <text x="350" y="35" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="20" font-weight="bold">GPU Server Architecture</text>
+
+  <!-- Server Rack Outer Frame -->
+  <rect x="80" y="55" width="540" height="625" rx="12" fill="#0D1117" stroke="#30363D" stroke-width="2"/>
+  <rect x="85" y="60" width="530" height="615" rx="10" fill="#0D1117" stroke="#21262D" stroke-width="1"/>
+
+  <!-- Rack label -->
+  <text x="350" y="82" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="11">SERVER RACK UNIT</text>
+
+  <!-- ===== GPU Units Section ===== -->
+  <rect x="100" y="92" width="500" height="150" rx="8" fill="#161B22" stroke="url(#gpu-grad)" stroke-width="2" filter="url(#glow)"/>
+  <text x="120" y="115" fill="#6C3CE1" font-family="Arial,sans-serif" font-size="12" font-weight="bold">GPU Units</text>
+
+  <!-- GPU 0 -->
+  <rect x="115" y="125" width="110" height="50" rx="6" fill="#0D1117" stroke="#6C3CE1" stroke-width="1"/>
+  <text x="170" y="148" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="11" font-weight="bold">GPU 0</text>
+  <text x="170" y="165" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">A100 80GB</text>
+
+  <!-- GPU 1 -->
+  <rect x="235" y="125" width="110" height="50" rx="6" fill="#0D1117" stroke="#6C3CE1" stroke-width="1"/>
+  <text x="290" y="148" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="11" font-weight="bold">GPU 1</text>
+  <text x="290" y="165" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">A100 80GB</text>
+
+  <!-- GPU 2 -->
+  <rect x="355" y="125" width="110" height="50" rx="6" fill="#0D1117" stroke="#6C3CE1" stroke-width="1"/>
+  <text x="410" y="148" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="11" font-weight="bold">GPU 2</text>
+  <text x="410" y="165" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">A100 80GB</text>
+
+  <!-- GPU 3 -->
+  <rect x="475" y="125" width="110" height="50" rx="6" fill="#0D1117" stroke="#6C3CE1" stroke-width="1"/>
+  <text x="530" y="148" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="11" font-weight="bold">GPU 3</text>
+  <text x="530" y="165" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">A100 80GB</text>
+
+  <!-- NVLink connections -->
+  <line x1="225" y1="145" x2="235" y2="145" stroke="#6C3CE1" stroke-width="2" opacity="0.7"/>
+  <line x1="345" y1="145" x2="355" y2="145" stroke="#6C3CE1" stroke-width="2" opacity="0.7"/>
+  <line x1="465" y1="145" x2="475" y2="145" stroke="#6C3CE1" stroke-width="2" opacity="0.7"/>
+
+  <text x="350" y="228" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">NVLink Interconnect · 600 GB/s Bidirectional</text>
+
+  <!-- ===== CPU / RAM Section ===== -->
+  <rect x="100" y="252" width="500" height="95" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="120" y="275" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">CPU / RAM</text>
+
+  <!-- CPU -->
+  <rect x="115" y="285" width="180" height="50" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="205" y="307" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="11" font-weight="bold">AMD EPYC 9654</text>
+  <text x="205" y="325" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">96 Cores · 3.7 GHz Boost</text>
+
+  <!-- RAM -->
+  <rect x="310" y="285" width="275" height="50" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="447" y="307" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="11" font-weight="bold">DDR5 ECC RAM</text>
+  <text x="447" y="325" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="8">512 GB · 4800 MT/s · 8 Channels</text>
+
+  <!-- ===== Network Interface ===== -->
+  <rect x="100" y="357" width="500" height="75" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="120" y="380" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Network Interface</text>
+
+  <rect x="115" y="390" width="230" height="30" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="230" y="410" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">ConnectX-7 · 400 GbE</text>
+
+  <rect x="355" y="390" width="230" height="30" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="470" y="410" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">InfiniBand HDR · 200 Gb/s</text>
+
+  <!-- ===== Storage Section ===== -->
+  <rect x="100" y="442" width="500" height="80" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="120" y="465" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Storage</text>
+
+  <rect x="115" y="475" width="230" height="35" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="230" y="497" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">NVMe SSD · 8TB</text>
+
+  <rect x="355" y="475" width="230" height="35" rx="6" fill="#0D1117" stroke="#30363D" stroke-width="1"/>
+  <text x="470" y="497" text-anchor="middle" fill="#E6EDF3" font-family="Arial,sans-serif" font-size="10">HDD Array · 100TB</text>
+
+  <!-- ===== Power Supply ===== -->
+  <rect x="100" y="532" width="240" height="65" rx="8" fill="#161B22" stroke="#F0883E" stroke-width="1.5"/>
+  <text x="220" y="557" text-anchor="middle" fill="#F0883E" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Power Supply</text>
+  <text x="220" y="577" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">2× 3000W Redundant PSU</text>
+  <text x="220" y="591" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">80 Plus Titanium</text>
+
+  <!-- ===== Cooling System ===== -->
+  <rect x="360" y="532" width="240" height="65" rx="8" fill="#161B22" stroke="#00B4FF" stroke-width="1.5"/>
+  <text x="480" y="557" text-anchor="middle" fill="#00B4FF" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Cooling System</text>
+  <text x="480" y="577" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Liquid Cooling · Direct-to-Chip</text>
+  <text x="480" y="591" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">Rear Door Heat Exchanger</text>
+
+  <!-- ===== PCIe Bus (connecting line) ===== -->
+  <rect x="100" y="610" width="500" height="35" rx="6" fill="#161B22" stroke="url(#gpu-grad)" stroke-width="1.5"/>
+  <text x="350" y="632" text-anchor="middle" fill="#8B949E" font-family="Arial,sans-serif" font-size="10">PCIe Gen5 x16 Bus · 64 GB/s · GPU Direct RDMA</text>
+
+  <!-- Side data bus indicators -->
+  <line x1="605" y1="130" x2="605" y2="560" stroke="#30363D" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="630" y="200" fill="#8B949E" font-family="Arial,sans-serif" font-size="8" transform="rotate(90,630,200)">DATA BUS</text>
+
+  <!-- Power indicator -->
+  <circle cx="110" y="68" r="5" fill="#3FB950"/>
+  <text x="125" y="73" fill="#3FB950" font-family="Arial,sans-serif" font-size="9">ONLINE</text>
+
+  <!-- Status indicators -->
+  <circle cx="480" y="68" r="5" fill="#3FB950"/>
+  <text x="495" y="73" fill="#8B949E" font-family="Arial,sans-serif" font-size="9">HEALTHY</text>
+</svg>
